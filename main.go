@@ -11,8 +11,17 @@ func main() {
 	p8sMiddleware := fiberprometheus.NewMiddleware("fiber", "http", "/metrics")
 	p8sMiddleware.Register(app)
 
-	app.Get("/:year", func(c *fiber.Ctx) {
-		c.Send("Bagad " + c.Params("year"))
+	palmares := make(map[string]string)
+	palmares["2010"] = "Bagad Cap Caval"
+
+	app.Get("/bagad/:year", func(c *fiber.Ctx) {
+		y := c.Params("year")
+		winner, found := palmares[y]
+		if !found {
+			c.Send("Not found")
+		} else {
+			c.Send(winner)
+		}
 	})
 
 	app.Listen(7000)
