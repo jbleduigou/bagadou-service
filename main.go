@@ -18,7 +18,7 @@ func main() {
 		y := c.Params("year")
 		winner, found := palmares[y]
 		if !found {
-			c.Send("Not found")
+			c.Status(404)
 		} else {
 			c.Send(winner)
 		}
